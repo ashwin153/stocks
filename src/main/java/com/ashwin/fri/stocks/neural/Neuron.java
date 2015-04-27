@@ -1,4 +1,4 @@
-package com.ashwin.fri.xbrl.neural;
+package com.ashwin.fri.stocks.neural;
 
 import java.io.Serializable;
 import java.util.ArrayList;

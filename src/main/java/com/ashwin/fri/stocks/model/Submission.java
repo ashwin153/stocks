@@ -1,4 +1,4 @@
-package com.ashwin.fri.xbrl.model;
+package com.ashwin.fri.stocks.model;
 
 import java.io.Serializable;
 import java.util.Date;

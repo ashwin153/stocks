@@ -1,11 +1,5 @@
-package com.ashwin.fri.xbrl.neural;
+package com.ashwin.fri.stocks.neural;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +18,10 @@ public class NeuralNetwork implements Serializable {
 			for(int j = 0; j < _neurons[i].length; j++)
 				_neurons[i][j] = new Neuron(nodes[i]);
 		}
+	}
+	
+	public int getNumberOfInputs() {
+		return _neurons[0][0].getWeights().size() - 1;
 	}
 	
 	public void backpropagate(List<Double> inputs, List<Double> target, double rate) {
@@ -92,32 +90,4 @@ public class NeuralNetwork implements Serializable {
 		return out;
 	}
 	
-	/**
-	 * Saves a NeuralNet to file. This method performs Object Serialization
-	 * using the Serialization interface provided by Java.
-	 * 
-	 * @param file save location
-	 * @throws IOException write error
-	 */
-	public void save(File file) throws IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
-		oos.writeObject(this);
-		oos.close();
-	}
-	
-	/**
-	 * Loads a NeuralNet from file. This method performs Object Deserialization
-	 * using the Serialization interface provided by Java.
-	 * 
-	 * @param file
-	 * @return
-	 * @throws IOException read error
-	 * @throws ClassNotFoundException object serializer error
-	 */
-	public static NeuralNetwork load(File file) throws IOException, ClassNotFoundException {
-		 ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-		 NeuralNetwork net = (NeuralNetwork) in.readObject();
-         in.close();
-         return net;
-	}
 }

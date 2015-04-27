@@ -8,3 +8,5 @@
 target/
 bin/
 tmp/
+
+docs/logs

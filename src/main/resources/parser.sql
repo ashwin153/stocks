@@ -1,6 +1,7 @@
 SET SESSION sql_mode='ALLOW_INVALID_DATES';
+SET foreign_key_checks = 0;
 
-LOAD DATA LOCAL INFILE '/Users/ashwin/Documents/ut-austin/freshman/cs-378/assignments/prog4/data/2014q4/sub.txt'
+LOAD DATA LOCAL INFILE '/Users/ashwin/Downloads/2015q1/sub.txt'
 IGNORE INTO TABLE registrants 
 	FIELDS TERMINATED BY '\t'
 	LINES TERMINATED BY '\n'
@@ -12,7 +13,7 @@ SET
 	sic = nullif(@sic, ''),
 	ein = nullif(@ein, '');
 
-LOAD DATA LOCAL INFILE '/Users/ashwin/Documents/ut-austin/freshman/cs-378/assignments/prog4/data/2014q4/sub.txt'
+LOAD DATA LOCAL INFILE '/Users/ashwin/Downloads/2015q1/sub.txt'
 IGNORE INTO TABLE submissions 
 	FIELDS TERMINATED BY '\t'
 	LINES TERMINATED BY '\n'
@@ -30,7 +31,7 @@ SET
 	accepted = STR_TO_DATE(@accepted, '%Y-%m-%d %T.%f'),
 	detail = cast(@detail as signed);
 
-LOAD DATA LOCAL INFILE '/Users/ashwin/Documents/ut-austin/freshman/cs-378/assignments/prog4/data/2014q4/tag.txt'
+LOAD DATA LOCAL INFILE '/Users/ashwin/Downloads/2015q1/tag.txt'
 IGNORE INTO TABLE tags 
 	FIELDS TERMINATED BY '\t'
 	LINES TERMINATED BY '\n'
@@ -45,7 +46,7 @@ SET
 	label = nullif(@label, ''),
 	foc = nullif(@foc, '');
 
-LOAD DATA LOCAL INFILE '/Users/ashwin/Documents/ut-austin/freshman/cs-378/assignments/prog4/data/2014q4/num.txt'
+LOAD DATA LOCAL INFILE '/Users/ashwin/Downloads/2015q1/num.txt'
 IGNORE INTO TABLE numbers 
 	FIELDS TERMINATED BY '\t'
 	LINES TERMINATED BY '\n'
@@ -55,5 +56,6 @@ SET
 	ddate = STR_TO_DATE(@ddate, '%Y%m%d'),
 	value = nullif(@value, ''),
 	footnote = nullif(@footnote, '');
+SET foreign_key_checks = 1;
 
 SELECT TABLE_NAME, TABLE_ROWS FROM `information_schema`.`tables` WHERE `table_schema` = 'sec';

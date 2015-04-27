@@ -1,17 +1,21 @@
-package com.ashwin.fri.xbrl.model;
+package com.ashwin.fri.stocks.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.ashwin.fri.xbrl.model.Tag.TagPK;
+import com.ashwin.fri.stocks.model.Tag.TagPK;
 
 @Entity
 @Table(name="tags")
@@ -22,11 +26,13 @@ public class Tag implements Serializable {
 	
 	private String _name, _version, _datatype, _label, _foc, _iord, _crdr;
 	private Boolean _isCustom, _isAbstract;
+	private List<Number> _numbers;
 	
 	public Tag() {}
 	
 	public Tag(String name, String version, Boolean isCustom, Boolean isAbstract,
-			String datatype, String iord, String crdr, String label, String foc) {
+			String datatype, String iord, String crdr, String label, String foc, 
+			List<Number> numbers) {
 		
 		setName(name);
 		setVersion(version);
@@ -37,6 +43,7 @@ public class Tag implements Serializable {
 		setCrdr(crdr);
 		setLabel(label);
 		setFoc(foc);
+		setNumbers(numbers);
 	}
 	
 	/**
@@ -64,6 +71,20 @@ public class Tag implements Serializable {
 	
 	public void setVersion(String version) {
 		_version = version;
+	}
+	
+	/**
+	 * Returns all the numbers associated with the submission.
+	 * 
+	 * @return numbers
+	 */
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="tag", fetch=FetchType.LAZY)
+	public List<Number> getNumbers() {
+		return _numbers;
+	}
+	
+	public void setNumbers(List<Number> numbers) {
+		_numbers = numbers;
 	}
 	
 	/**
