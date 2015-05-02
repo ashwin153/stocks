@@ -1,4 +1,4 @@
-package com.ashwin.fri.stocks.model;
+package com.ashwin.fri.stocks.hibernate;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.ashwin.fri.stocks.model.Number.NumberPK;
+import com.ashwin.fri.stocks.hibernate.Number.NumberPK;
 
 @Entity
 @Table(name="numbers")

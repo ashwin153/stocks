@@ -1,4 +1,4 @@
-package com.ashwin.fri.stocks.model;
+package com.ashwin.fri.stocks.hibernate;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.ashwin.fri.stocks.model.Tag.TagPK;
+import com.ashwin.fri.stocks.hibernate.Tag.TagPK;
 
 @Entity
 @Table(name="tags")

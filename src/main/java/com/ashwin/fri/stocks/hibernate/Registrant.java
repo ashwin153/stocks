@@ -1,4 +1,4 @@
-package com.ashwin.fri.stocks.model;
+package com.ashwin.fri.stocks.hibernate;
 
 import java.io.Serializable;
 import java.util.List;

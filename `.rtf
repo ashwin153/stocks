@@ -1,0 +1,18 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1347\cocoasubrtf570
+{\fonttbl\f0\fnil\fcharset0 Verdana;}
+{\colortbl;\red255\green255\blue255;\red48\green116\blue146;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl329
+{\field{\*\fldinst{HYPERLINK "https://utdirect.utexas.edu/apps/registrar/course_schedule/20159/50972/"}}{\fldrslt 
+\f0\fs24 \cf2 \expnd0\expndtw0\kerning0
+50972}}
+\f0\fs24 \cf2 \expnd0\expndtw0\kerning0
+ Machine Learning + Vision Honors {\field{\*\fldinst{HYPERLINK "https://utdirect.utexas.edu/apps/registrar/course_schedule/20159/50959/"}}{\fldrslt 50959}} Randomized Algorithms\
+\pard\pardeftab720\sl329
+{\field{\*\fldinst{HYPERLINK "https://utdirect.utexas.edu/apps/registrar/course_schedule/20159/02760/"}}{\fldrslt \cf2 02760}} Accounting\
+{\field{\*\fldinst{HYPERLINK "https://utdirect.utexas.edu/apps/registrar/course_schedule/20159/50770/"}}{\fldrslt 50770}} OS\
+{\field{\*\fldinst{HYPERLINK "https://utdirect.utexas.edu/apps/registrar/course_schedule/20159/53560/"}}{\fldrslt 53560}} Real Analysis\
+\
+\
+select tags.name, count(distinct submissions.adsh) as count from tags join numbers on tags.name = numbers.name join submissions on numbers.adsh = submissions.adsh join registrants on submissions.cik = registrants.cik where registrants.sic = 1311 and tags.name like '%Revenue%' group by tags.name order by count desc;}
