@@ -5,11 +5,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The statistic class computes and saves statistics about a data set.
+ * It computes important summary statistics: such as mean, standard
+ * deviation, skewness, kurtosis, and margin of error.
+ * 
+ * @author ashwin
+ *
+ */
 public class Statistic implements Serializable {
 	
 	private static final long serialVersionUID = -995301427142018566L;
 	
-	private double _mean, _stdev;
+	private double _mean, _stdev, _skewness, _kurtosis, _marginOfError;
 	private int _N;
 
 	public Statistic(List<Double> values) {
@@ -38,11 +46,13 @@ public class Statistic implements Serializable {
 		
 		double variance = getCentralMoment(sample, _mean, 2);
 		_stdev = Math.sqrt(variance * bias);
+		if(_stdev == 0)
+			_stdev = Math.pow(10, -9);
 		
-//		_skewness = getCentralMoment(sample, _mean, 3) * bias / Math.pow(_stdev, 3);
-//		_kurtosis = getCentralMoment(sample, _mean, 4) / Math.pow(_stdev, 4);
-//		double standardError = _stdev / Math.sqrt(_N);
-//		double marginOfError = 1.96 * standardError;
+		_skewness = getCentralMoment(sample, _mean, 3) * bias / Math.pow(_stdev, 3);
+		_kurtosis = getCentralMoment(sample, _mean, 4) / Math.pow(_stdev, 4);
+		double standardError = _stdev / Math.sqrt(_N);
+		_marginOfError = 1.96 * standardError;
 	}
 	
 	public double getMean() {
@@ -53,10 +63,36 @@ public class Statistic implements Serializable {
 		return _stdev;
 	}
 	
-	public double normalize(double value) {
-		return (value - _mean) / ((_stdev == 0) ? 1.0 : _stdev);
+	public double getSkewness() {
+		return _skewness;
 	}
 	
+	public double getKurtosis() {
+		return _kurtosis;
+	}
+	
+	public double getMarginOfError() {
+		return _marginOfError;
+	}
+	
+	/**
+	 * Normalizes the given value using the calculated mean and
+	 * standard deviation.
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public double normalize(double value) {
+		return (value - _mean) / _stdev;
+	}
+	
+	/**
+	 * Calculates the raw value from a normalized value using the
+	 * calculated mean and standard deviation.
+	 * 
+	 * @param norm
+	 * @return
+	 */
 	public double raw(double norm) {
 		return norm * _stdev + _mean;
 	}

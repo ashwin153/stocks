@@ -1,62 +1,28 @@
 package com.ashwin.fri.stocks;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-
-import com.ashwin.fri.stocks.forecast.Forecast;
-import com.ashwin.fri.stocks.hibernate.HibernateConfig;
-import com.ashwin.fri.stocks.hibernate.Submission;
-import com.ashwin.fri.stocks.hibernate.Submission.FiscalPeriod;
-import com.ashwin.fri.stocks.hibernate.Tag;
+import com.ashwin.fri.stocks.hibernate.Registrant;
 
 public class ForecastTester {
 	
 	public static void main(String[] args) throws Exception {
-		List<Tag> outputs = new ArrayList<Tag>(Arrays.asList(
-				getTagByName("Revenues"),
-				getTagByName("OperatingExpenses"),
-				getTagByName("OperatingIncomeLoss")
-		));
+//		Forecast forecast = new Forecast(1311, 15, "Revenues");
+//		Date start = new Date(0);
+//		Date end   = new Date(System.currentTimeMillis());
+//		Set<Submission> training = forecast.train(start, end, 0.90, 1.0);
+//		System.out.println("Successfully trained on " + training.size() + " submissions");
+//		
+//		Submission submission = new Submission();
+//		submission.setAdsh("0000311471-14-000006");
+//		submission.setFilerStatus(FilerStatus.ACCELERATED);
+//		System.out.println(forecast.predict(submission));
+//		submission.setFilerStatus(FilerStatus.LARGE_ACCELERATED);
+//		System.out.println(forecast.predict(submission));
 		
-		Forecast forecast = new Forecast(1311, 15, outputs);
-		List<Submission> training = new ArrayList<Submission>();
-		for(int year = 2014; year < 2015; year++) {
-				training.addAll(forecast.train(year, FiscalPeriod.Q1, 1.0));
-				training.addAll(forecast.train(year, FiscalPeriod.Q2, 1.0));
-				training.addAll(forecast.train(year, FiscalPeriod.Q3, 1.0));
-				training.addAll(forecast.train(year, FiscalPeriod.FY, 1.0));
-		}
-				
-		System.out.println("Successfully trained on " + training.size() + " submissions");
-	}
-	
-	public static Tag getTagByName(String name) {
-		Session session = HibernateConfig.FACTORY.openSession();
-		Transaction tx  = session.beginTransaction();
+		Registrant apco = new Registrant();
+		apco.setCik(311471);
+		apco.setSic(1311);
 		
-		Object[] arr = (Object[]) session.createCriteria(Tag.class)
-				.add(Restrictions.eq("name", name))
-				.add(Restrictions.eq("custom", false))
-				.add(Restrictions.eq("abstract", false))
-				.setProjection(Projections.projectionList()
-						.add(Projections.groupProperty("name"))
-						.add(Projections.property("datatype"))
-						.add(Projections.property("iord"))
-						.add(Projections.property("crdr"))
-						.add(Projections.property("label"))
-						.add(Projections.property("foc")))
-				.uniqueResult();
-		
-		tx.rollback();
-		session.close();
-		
-		return new Tag((String) arr[0], null, false, false, (String) arr[1],
-				(String) arr[2], (String) arr[3], (String) arr[4], (String) arr[5], null);
+		DCFAnalysis dcf = new DCFAnalysis(1311);
+		System.out.println(dcf.value(apco, 38800000, 32480000, 3370000, 5817000, 72040000, 38020000));
 	}
 }

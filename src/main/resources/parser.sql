@@ -1,7 +1,7 @@
 SET SESSION sql_mode='ALLOW_INVALID_DATES';
 SET foreign_key_checks = 0;
 
-LOAD DATA LOCAL INFILE '/Users/ashwin/Downloads/2015q1/sub.txt'
+LOAD DATA LOCAL INFILE '/Users/ashwin/Downloads/2012q4/sub.txt'
 IGNORE INTO TABLE registrants 
 	FIELDS TERMINATED BY '\t'
 	LINES TERMINATED BY '\n'
@@ -13,7 +13,7 @@ SET
 	sic = nullif(@sic, ''),
 	ein = nullif(@ein, '');
 
-LOAD DATA LOCAL INFILE '/Users/ashwin/Downloads/2015q1/sub.txt'
+LOAD DATA LOCAL INFILE '/Users/ashwin/Downloads/2012q4/sub.txt'
 IGNORE INTO TABLE submissions 
 	FIELDS TERMINATED BY '\t'
 	LINES TERMINATED BY '\n'
@@ -31,7 +31,7 @@ SET
 	accepted = STR_TO_DATE(@accepted, '%Y-%m-%d %T.%f'),
 	detail = cast(@detail as signed);
 
-LOAD DATA LOCAL INFILE '/Users/ashwin/Downloads/2015q1/tag.txt'
+LOAD DATA LOCAL INFILE '/Users/ashwin/Downloads/2012q4/tag.txt'
 IGNORE INTO TABLE tags 
 	FIELDS TERMINATED BY '\t'
 	LINES TERMINATED BY '\n'
@@ -46,7 +46,7 @@ SET
 	label = nullif(@label, ''),
 	foc = nullif(@foc, '');
 
-LOAD DATA LOCAL INFILE '/Users/ashwin/Downloads/2015q1/num.txt'
+LOAD DATA LOCAL INFILE '/Users/ashwin/Downloads/2012q4/num.txt'
 IGNORE INTO TABLE numbers 
 	FIELDS TERMINATED BY '\t'
 	LINES TERMINATED BY '\n'

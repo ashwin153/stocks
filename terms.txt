@@ -1,0 +1,22 @@
+# Income Before Taxes = EBIT?
+Income Before Taxes				IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest
+
+Income Taxes					IncomeTaxExpenseBenefit
+Other Taxes (except income)		TaxesOther
+
+Revenue							Revenues
+Operating Costs					OperatingExpenses
+Depreciation & Amortization 	DepreciationDepletionAndAmortization
+Net Income						NetIncomeLoss
+Operating Income				OperatingIncomeLoss
+
+Earnings Per Share (EPS)		EarningsPerShareBasicAndDiluted
+
+Assets							Assets
+Current Assets					AssetsCurrent
+
+Free Cash Flow = Revenues - Operating Costs - Taxes - Net Investments - Change in Working Capital
+
+select tags.name, count(distinct submissions.adsh) as count from tags join numbers on tags.name = numbers.name join submissions on 
+numbers.adsh = submissions.adsh join registrants on submissions.cik = registrants.cik where registrants.sic = 1311 and tags.name 
+like 'NetIncome%' group by tags.name order by count desc limit 10;
